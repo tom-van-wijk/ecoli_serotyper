@@ -34,7 +34,7 @@
 # > ecoli_serotyper.py -i <inputfile> -o <outputdir>
 
 # inputfile:		location of input file. This should be a fully
-#			assembled ecoli	genome in .fasta/.fsa format.
+#			assembled ecoli	genome in .fasta/.fsa/.fna/.fa format.
 
 # outputdir:		location of output directory. If none is specified,
 #			an output directory will be created in the directory
@@ -58,7 +58,7 @@ def parse_arguments(args, log):
 	parser = ArgumentParser(prog="ecoli_serotyper.py")
 	parser.add_argument("-i", "--infile", dest = "input_file",
 		action = "store", default = None, type = str,
-		help = "Location of input .fasta/.fsa file (required)",
+		help = "Location of input .fasta file (required)",
 		required = True)
 	parser.add_argument("-o", "--outdir", dest = "output_dir",
 		action = "store", default = 'inputfile', type = str,
@@ -162,7 +162,7 @@ def main():
 	# TODO: check parameters, indir ect.
 	# creating output directory
 	if args.output_dir == 'inputfile':
-		outdir = args.input_file.replace(".fasta", "").replace(".fsa", "")+"_ecoli_serotyper_output"
+		outdir = args.input_file.replace(".fasta", "").replace(".fna", "").replace(".fsa", "").replace(".fa", "")+"_ecoli_serotyper_output"
 	else:
 		outdir = os.path.abspath(args.output_dir)
 	log.info("Creating output directory: "+outdir)

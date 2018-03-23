@@ -33,7 +33,7 @@
 # > multi_ES.py -i <inputdir> -o <outputdir>
 
 # inputfile:		location of input directory. Should contain
-#			assembled ecoli	genomes in .fasta/.fsa format.
+#			assembled ecoli	genomes in .fasta/.fsa/.fna/.fa format.
 
 # outputdir:		location of output directory. If none is specified,
 #			an output directory will be created in the directory
@@ -134,18 +134,18 @@ def main():
 	os.system("mkdir "+outdir)
 	with open(outdir+"/multi_serotyper_output.txt",  "w") as outfile:
 		outfile.write("File:\tH-type:\tO-type:")
-		# iterating over .fasta/.fsa files in input directory:
+		# iterating over .fasta/.fsa/.fna/.fa files in input directory:
 		for file in list_directory(args.input_dir, 'files', 1):
-			if file.endswith(".fasta") or file.endswith(".fsa"):
+			if file.endswith(".fasta") or file.endswith(".fsa") or file.endswith(".fna") or file.endswith(".fa"):
 				path = os.path.dirname(os.path.abspath(args.input_dir))+"/"+args.input_dir+file
 				# run the ecoli_serotyper.py
 				log.info("\nstarting ecoli.serotyper for file:\n"+path)
 				os.system("ecoli_serotyper.py -i "+path)
 				# get the H- and O- type from the logfile and write to output file
-				H, O = parse_logfile(path.replace(".fasta", "_ecoli_serotyper_output/ecoli_serotyper.log"))
+				H, O = parse_logfile(path.replace(".fasta", "_ecoli_serotyper_output/ecoli_serotyper.log").replace(".fna", "_ecoli_serotyper_output/ecoli_serotyper.log").replace(".fsa", "_ecoli_serotyper_output/ecoli_serotyper.log").replace(".fa", "_ecoli_serotyper_output/ecoli_serotyper.log"))
 				outfile.write("\n"+file+"\t"+H+"\t"+O)
 				# move ecoli_serotyper_output dir to multi_serotyper_output/
-				os.system("mv "+path.replace(".fasta", "_ecoli_serotyper_output")+" "+outdir+"/")
+				os.system("mv "+path.replace(".fasta", "_ecoli_serotyper_output").replace(".fna", "_ecoli_serotyper_output").replace(".fsa", "_ecoli_serotyper_output").replace(".fa", "_ecoli_serotyper_output")+" "+outdir+"/")
 	outfile.close()	
 	# close logger handlers
 	log.info("\nClosing logger and finalising multi_serotyper.py")
