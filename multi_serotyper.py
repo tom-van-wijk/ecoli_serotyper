@@ -36,8 +36,8 @@
 #			assembled ecoli	genomes in .fasta/.fsa/.fna/.fa format.
 
 # outputdir:		location of output directory. If none is specified,
-#			an output directory will be created in the directory
-#			containing the inputfile.
+#			an output directory will be created in the input
+#			directory.
 
 
 # import python libraries
