@@ -1,4 +1,4 @@
-# E. coli serotyper
+# ECOLI SEROTYPER
 
 **Licence:	GNU General Public License v3.0 (copy provided in directory)**<br />
 Author:		Tom van Wijk - RIVM Bilthoven<br />
@@ -43,13 +43,13 @@ Start ecoli_serotyper.py with the following command:
 -	**'outputdir':**	location of output directory.<br />
 			If none is specified, an output directory will be created in the directory containing the inputfile.
 
-## Multi serotyper
+## MULTI SEROTYPER
 
 Added in this repository is `multi_serotyper.py`.
 This script allows for large batches of data to be typed with a single command.
 When the installation of ecoli_serotyper is complete, no additional dependencies have to be installed and no additional steps have to be taken,
 you are ready to go.<br /><br />
-This script will create an ouput directory with a subdirectory for each genome containing the ecoli_serotyper.py output.
+This script will create an output directory with a subdirectory for each genome containing the ecoli_serotyper.py output.
 Additionally `multy_serotyper_output.txt` will be created with an overview of all typed genomes.
 
 #### USAGE
