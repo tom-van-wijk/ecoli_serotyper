@@ -49,6 +49,7 @@ import os
 import sys
 import subprocess
 import operator
+import random
 
 
 # Function to parse the command-line arguments
@@ -69,12 +70,12 @@ def parse_arguments(args, log):
 
 # Function creates logger with handlers for both logfile and console output
 # Returns logger
-def create_logger():
+def create_logger(logid):
 	# create logger
 	log = logging.getLogger()
 	log.setLevel(logging.INFO)
 	# create file handler
-	fh = logging.FileHandler('ecoli_serotyper.log')
+	fh = logging.FileHandler(str(logid)+'_ecoli_serotyper.log')
 	fh.setLevel(logging.DEBUG)
 	fh.setFormatter(logging.Formatter('%(message)s'))
 	log.addHandler(fh)
@@ -156,7 +157,8 @@ def close_logger(log):
 # MAIN function
 def main():
 	# create logger
-	log = create_logger()
+	logid = random.randint(99999, 9999999)
+	log = create_logger(logid)
 	# parse command line arguments
 	args = parse_arguments(sys.argv, log)
 	# TODO: check parameters, indir ect.
@@ -180,7 +182,7 @@ def main():
 	log.info("\nClosing logger and finalising ecoli_serotyper.py")
 	close_logger(log)
 	# move logfile to output directory
-	os.system("mv ecoli_serotyper.log "+outdir+"/")
+	os.system("mv "+str(logid)+"_ecoli_serotyper.log "+outdir+"/ecoli_serotyper.log")
 
 
 main()

@@ -46,6 +46,7 @@ import logging
 import logging.handlers
 import os
 import sys
+import random
 
 
 # Function to parse the command-line arguments
@@ -66,12 +67,12 @@ def parse_arguments(args, log):
 
 # Function creates logger with handlers for both logfile and console output
 # Returns logger
-def create_logger():
+def create_logger(logid):
 	# create logger
 	log = logging.getLogger()
 	log.setLevel(logging.INFO)
 	# create file handler
-	fh = logging.FileHandler('multi_serotyper.log')
+	fh = logging.FileHandler(str(logid)+'_multi_serotyper.log')
 	fh.setLevel(logging.DEBUG)
 	fh.setFormatter(logging.Formatter('%(message)s'))
 	log.addHandler(fh)
@@ -121,7 +122,8 @@ def close_logger(log):
 # MAIN function
 def main():
 	# create logger
-	log = create_logger()
+	logid = random.randint(99999, 9999999)
+	log = create_logger(logid)
 	# parse command line arguments
 	args = parse_arguments(sys.argv, log)
 	# TODO: check parameters, indir ect.
@@ -151,8 +153,7 @@ def main():
 	log.info("\nClosing logger and finalising multi_serotyper.py")
 	close_logger(log)
 	# move logfile and outputfile to output directory
-	os.system("mv multi_serotyper.log "+outdir+"/")
-	#os.system("mv multi_serotyper_output.txt "+outdir+"/")
+	os.system("mv "+str(logid)+"_multi_serotyper.log "+outdir+"/multi_serotyper.log")
 
 
 main()
