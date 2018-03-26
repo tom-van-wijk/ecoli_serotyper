@@ -7,7 +7,8 @@ Contact:	tom_van_wijk@hotmail.com / tom.van.wijk@rivm.nl<br />
 #### DESCRIPTION
 
 Blast-based tool for in silico serotyping of e. coli assemblies.
-The reference database used for typing is a blast database created using the database of serotypefinder from CGE (Center for Genomic Epidemiology).<br />
+The reference database used for typing is a blast database created using the database of serotypefinder from CGE (Center for Genomic Epidemiology).
+When using this tool, please cite as:<br /><br />
 *Joensen, K. G., A. M. Tetzschner, A. Iguchi, F. M. Aarestrup, and F. Scheutz. 2015. Rapid and easy in silico serotyping of Escherichia coli using whole genome sequencing (WGS) data. J.Clin.Microbiol. 53(8):2410-2426. doi:JCM.00008-15 [pii];10.1128/JCM.00008-15 [doi]*
 
 #### REQUIREMENTS
@@ -17,7 +18,7 @@ The reference database used for typing is a blast database created using the dat
 -	python v2.7.x
 -	python libraries as listed in the import section of ecoli_serotyper.py
 -	Blast v2.6.0+
--	The reference directory in this contaning the H-database and O-database
+-	The reference directory supplied with this repository contaning the H-database and O-database
 
 #### INSTALLATION
 
@@ -42,9 +43,9 @@ Start ecoli_serotyper.py with the following command:
 -	**'outputdir':**	location of output directory.<br />
 			If none is specified, an output directory will be created in the directory containing the inputfile.
 
-## Multi serptyper
+## Multi serotyper
 
-Added in this repository is multi_serotyper.py.
+Added in this repository is `multi_serotyper.py`.
 This script allows for large batches of data to be typed with a single command.
 When the installation of ecoli_serotyper is complete, no additional dependencies have to be installed and no additional steps have to be taken,
 you are ready to go.<br /><br />
