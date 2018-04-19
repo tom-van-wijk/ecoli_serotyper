@@ -61,7 +61,7 @@ def parse_arguments(args, log):
 	parser.add_argument("-o", "--outdir", dest = "output_dir",
 		action = "store", default = 'inputdir', type = str,
 		help = "Location of output directory (default=inputfile)")
-	#TODO: add max cpu option
+	#TODO: add max cpu thread parameter for BLAST
 	return parser.parse_args()
 
 
@@ -126,29 +126,34 @@ def main():
 	log = create_logger(logid)
 	# parse command line arguments
 	args = parse_arguments(sys.argv, log)
-	# TODO: check parameters, indir ect.
+	# TODO: add function to validate parameters, input data ect.
 	# creating output directory
 	if args.output_dir == 'inputdir':
-		outdir = os.path.dirname(os.path.abspath(args.input_dir))+"/"+args.input_dir+"/multi_serotyper_output"
+		#outdir = os.path.dirname(os.path.abspath(args.input_dir))+"/"+args.input_dir+"/multi_serotyper_output"
+		outdir = os.path.abspath(args.input_dir)+"/multi_serotyper_output"
 	else:
+		#outdir = os.path.abspath(args.output_dir+"/multi_serotyper_output")
 		outdir = os.path.abspath(args.output_dir)
 	log.info("Creating output directory: "+outdir)
-	os.system("mkdir "+outdir)
+	os.system("mkdir -p "+outdir)
 	with open(outdir+"/multi_serotyper_output.txt",  "w") as outfile:
 		outfile.write("File:\tH-type:\tO-type:")
 		# iterating over .fasta/.fsa/.fna/.fa files in input directory:
 		for file in list_directory(args.input_dir, 'files', 1):
 			if file.endswith(".fasta") or file.endswith(".fsa") or file.endswith(".fna") or file.endswith(".fa"):
-				path = os.path.dirname(os.path.abspath(args.input_dir))+"/"+args.input_dir+file
+				#in_path = os.path.dirname(os.path.abspath(args.input_dir))+"/"+args.input_dir+"/"+file
+				#out_path = outdir+"/"+file.replace(".fasta", "_ecoli_serotyper_output").replace(".fna", "_ecoli_serotyper_output").replace(".fsa", "_ecoli_serotyper_output").replace(".fa", "_ecoli_serotyper_output"
+				in_path = os.path.abspath(args.input_dir)+"/"+file
+				out_path = os.path.abspath(outdir)+"/"+file.replace(".fasta", "").replace(".fna", "").replace(".fsa", "").replace(".fa", "")+"_ecoli_serotyper_output"
 				# run the ecoli_serotyper.py
-				log.info("\nstarting ecoli.serotyper for file:\n"+path)
-				os.system("ecoli_serotyper.py -i "+path)
+				log.info("\nstarting ecoli.serotyper for file:\n"+in_path)
+				os.system("ecoli_serotyper.py -i "+in_path+" -o "+out_path)
 				# get the H- and O- type from the logfile and write to output file
-				H, O = parse_logfile(path.replace(".fasta", "_ecoli_serotyper_output/ecoli_serotyper.log").replace(".fna", "_ecoli_serotyper_output/ecoli_serotyper.log").replace(".fsa", "_ecoli_serotyper_output/ecoli_serotyper.log").replace(".fa", "_ecoli_serotyper_output/ecoli_serotyper.log"))
+				H, O = parse_logfile(out_path+"/ecoli_serotyper.log")
 				outfile.write("\n"+file+"\t"+H+"\t"+O)
 				# move ecoli_serotyper_output dir to multi_serotyper_output/
-				os.system("mv "+path.replace(".fasta", "_ecoli_serotyper_output").replace(".fna", "_ecoli_serotyper_output").replace(".fsa", "_ecoli_serotyper_output").replace(".fa", "_ecoli_serotyper_output")+" "+outdir+"/")
-	outfile.close()	
+				#os.system("mv "+out_path.replace(".fasta", "_ecoli_serotyper_output").replace(".fna", "_ecoli_serotyper_output").replace(".fsa", "_ecoli_serotyper_output").replace(".fa", "_ecoli_serotyper_output")+" "+outdir+"/")
+	outfile.close()
 	# close logger handlers
 	log.info("\nClosing logger and finalising multi_serotyper.py")
 	close_logger(log)

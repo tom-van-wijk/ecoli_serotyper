@@ -64,7 +64,7 @@ def parse_arguments(args, log):
 	parser.add_argument("-o", "--outdir", dest = "output_dir",
 		action = "store", default = 'inputfile', type = str,
 		help = "Location of output directory (default=inputfile)")
-	#TODO: add max cpu option
+	#TODO: add max cpu thread parameter for BLAST
 	return parser.parse_args()
 
 
@@ -161,18 +161,21 @@ def main():
 	log = create_logger(logid)
 	# parse command line arguments
 	args = parse_arguments(sys.argv, log)
-	# TODO: check parameters, indir ect.
+	# TODO: add function to validate parameters, data ect.
 	# creating output directory
 	if args.output_dir == 'inputfile':
-		outdir = args.input_file.replace(".fasta", "").replace(".fna", "").replace(".fsa", "").replace(".fa", "")+"_ecoli_serotyper_output"
+		outdir = os.path.abspath(args.input_file).replace(".fasta", "").replace(".fna", "").replace(".fsa", "").replace(".fa", "")+"_ecoli_serotyper_output"
 	else:
+		#infile_path, infile_file = os.path.split(os.path.abspath(args.input_file))
+		#print "INFILE\t"+infile_file
+		#outdir = os.path.abspath(args.output_dir)+"/"+infile_file.replace(".fasta", "").replace(".fna", "").replace(".fsa", "").replace(".fa", "")+"_ecoli_serotyper_output"
 		outdir = os.path.abspath(args.output_dir)
 	log.info("Creating output directory: "+outdir)
-	os.system("mkdir "+outdir)
+	os.system("mkdir -p "+outdir)
 	# blasting target genome to H and O databases
 	for type in ["H_type", "O_type"]:
 		log.info("________________________________________________________________________________\n")
-		log.info("Blasting query to: '%s'...\n" % (type)) 
+		log.info("Blasting query to: '%s'...\n" % (type))
 		os.system("blastn -query %s -db %s -perc_identity 85 -outfmt 6 -num_threads 4 | sort -u -k1,1 --merge > %s"
 		% (args.input_file, os.environ['SERO_REF']+"/"+type.replace("type", "database")+"/"+type, outdir+"/blastn_results_"+type+".txt"))
 		# parse and filter blastn output

@@ -1,4 +1,4 @@
-# ECOLI SEROTYPER
+# In Silico E. Coli serotyping tool
 
 **Licence:	GNU General Public License v3.0 (copy provided in directory)**<br />
 Author:		Tom van Wijk - RIVM Bilthoven<br />
@@ -43,7 +43,7 @@ Start ecoli_serotyper.py with the following command:
 -	**'outputdir':**	location of output directory.<br />
 			If none is specified, an output directory will be created in the directory containing the inputfile.
 
-## MULTI SEROTYPER
+## Multi Serotyper
 
 Added in this repository is `multi_serotyper.py`.
 This script allows for large batches of data to be typed with a single command.
