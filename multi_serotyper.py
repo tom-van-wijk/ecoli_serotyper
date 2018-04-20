@@ -2,7 +2,7 @@
 
 
 # Name:		multi_serotyper.py
-# Date:		23-03-2018
+# Date:		20-04-2018
 # Licence:	GNU General Public License v3.0 (copy provided in directory)
 # Author:	Tom van Wijk - RIVM Bilthoven
 # Contact:	tom_van_wijk@hotmail.com / tom.van.wijk@rivm.nl
@@ -112,6 +112,7 @@ def parse_logfile(filepath):
 	logfile.close()
 	return H, O
 
+
 # Function closes logger handlers
 def close_logger(log):
 	for handler in log.handlers:
@@ -129,10 +130,8 @@ def main():
 	# TODO: add function to validate parameters, input data ect.
 	# creating output directory
 	if args.output_dir == 'inputdir':
-		#outdir = os.path.dirname(os.path.abspath(args.input_dir))+"/"+args.input_dir+"/multi_serotyper_output"
 		outdir = os.path.abspath(args.input_dir)+"/multi_serotyper_output"
 	else:
-		#outdir = os.path.abspath(args.output_dir+"/multi_serotyper_output")
 		outdir = os.path.abspath(args.output_dir)
 	log.info("Creating output directory: "+outdir)
 	os.system("mkdir -p "+outdir)
@@ -141,8 +140,6 @@ def main():
 		# iterating over .fasta/.fsa/.fna/.fa files in input directory:
 		for file in list_directory(args.input_dir, 'files', 1):
 			if file.endswith(".fasta") or file.endswith(".fsa") or file.endswith(".fna") or file.endswith(".fa"):
-				#in_path = os.path.dirname(os.path.abspath(args.input_dir))+"/"+args.input_dir+"/"+file
-				#out_path = outdir+"/"+file.replace(".fasta", "_ecoli_serotyper_output").replace(".fna", "_ecoli_serotyper_output").replace(".fsa", "_ecoli_serotyper_output").replace(".fa", "_ecoli_serotyper_output"
 				in_path = os.path.abspath(args.input_dir)+"/"+file
 				out_path = os.path.abspath(outdir)+"/"+file.replace(".fasta", "").replace(".fna", "").replace(".fsa", "").replace(".fa", "")+"_ecoli_serotyper_output"
 				# run the ecoli_serotyper.py
@@ -151,8 +148,6 @@ def main():
 				# get the H- and O- type from the logfile and write to output file
 				H, O = parse_logfile(out_path+"/ecoli_serotyper.log")
 				outfile.write("\n"+file+"\t"+H+"\t"+O)
-				# move ecoli_serotyper_output dir to multi_serotyper_output/
-				#os.system("mv "+out_path.replace(".fasta", "_ecoli_serotyper_output").replace(".fna", "_ecoli_serotyper_output").replace(".fsa", "_ecoli_serotyper_output").replace(".fa", "_ecoli_serotyper_output")+" "+outdir+"/")
 	outfile.close()
 	# close logger handlers
 	log.info("\nClosing logger and finalising multi_serotyper.py")

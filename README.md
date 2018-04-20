@@ -8,7 +8,7 @@ Contact:	tom_van_wijk@hotmail.com / tom.van.wijk@rivm.nl<br />
 
 Blast-based tool for in silico serotyping of e. coli assemblies.
 The reference database used for typing is a blast database created using the database of serotypefinder from CGE (Center for Genomic Epidemiology).
-When using this tool, please also cite them as:<br /><br />
+When using this tool, please also cite the authors of that database as:<br /><br />
 *Joensen, K. G., A. M. Tetzschner, A. Iguchi, F. M. Aarestrup, and F. Scheutz. 2015. Rapid and easy in silico serotyping of Escherichia coli using whole genome sequencing (WGS) data. J.Clin.Microbiol. 53(8):2410-2426. doi:JCM.00008-15 [pii];10.1128/JCM.00008-15 [doi]*
 
 #### REQUIREMENTS

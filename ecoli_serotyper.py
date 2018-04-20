@@ -2,7 +2,7 @@
 
 
 # Name:		ecoli_serotyper.py
-# Date:		23-03-2018
+# Date:		20-04-2018
 # Licence:	GNU General Public License v3.0 (copy provided in directory)
 # Author:	Tom van Wijk - RIVM Bilthoven
 # Contact:	tom_van_wijk@hotmail.com / tom.van.wijk@rivm.nl
@@ -95,7 +95,6 @@ def parse_blastn_output(blast_results, database, log):
 	all_blast_hits = []
 	filtered_blast_hits = []
 	result = "NA"
-	#print blast_results
 	blastn_outfmt6_header = "id:\tquery seq:\treference seq:\t% identity:\talignment length:\tmismatches:\tgap opens:\tq start:\tq end:\ts start:\ts end:\te-value:\tscore:"
 	with open(blast_results,  "r") as blast_results_file:
 		for line in blast_results_file:
@@ -166,9 +165,6 @@ def main():
 	if args.output_dir == 'inputfile':
 		outdir = os.path.abspath(args.input_file).replace(".fasta", "").replace(".fna", "").replace(".fsa", "").replace(".fa", "")+"_ecoli_serotyper_output"
 	else:
-		#infile_path, infile_file = os.path.split(os.path.abspath(args.input_file))
-		#print "INFILE\t"+infile_file
-		#outdir = os.path.abspath(args.output_dir)+"/"+infile_file.replace(".fasta", "").replace(".fna", "").replace(".fsa", "").replace(".fa", "")+"_ecoli_serotyper_output"
 		outdir = os.path.abspath(args.output_dir)
 	log.info("Creating output directory: "+outdir)
 	os.system("mkdir -p "+outdir)
