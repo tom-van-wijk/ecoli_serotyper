@@ -28,7 +28,7 @@ When using this tool, please also cite the authors of that database as:<br /><br
 	`export PATH=$PATH:/path/to/ecoli_serotyper.py`<br />
 	(It is recommended to add this command to your ~/.bashrc file)
 -	Create path variable ECOLI_REF to the reference subdirectory:<br />
-	`export ECOLI_REF=/path/to/ecoli_serotyper/reference`<br />
+	`export SERO_REF=/path/to/ecoli_serotyper/reference`<br />
 	(It is recommended to add this command to your ~/.bashrc file)
 
 #### USAGE
