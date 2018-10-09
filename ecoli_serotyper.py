@@ -139,7 +139,7 @@ def parse_blastn_output(blast_results, database, log):
 			log.info("\nselecting best hit based on blast score:\n"+blastn_outfmt6_header)
 			hit_scores = {}
 			for hit in filtered_blast_hits:
-				hit_score[hit] = int(hit.split("\t")[10])
+				hit_scores[hit] = int(hit.split("\t")[11])
 			best_hit = max(hit_scores.iteritems(), key=operator.itemgetter(1))[0]
 			log.info(hit_ids.get(best_hit)+"\t"+best_hit)
 			result = (best_hit.split("\t")[1].split("_")[3]+" ("+best_hit.split("\t")[1].split("_")[0]+")")
