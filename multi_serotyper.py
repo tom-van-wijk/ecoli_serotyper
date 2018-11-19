@@ -51,8 +51,7 @@ import random
 
 # Function to parse the command-line arguments
 # Returns a namespace with argument keys and values
-def parse_arguments(args, log):
-	log.info("Parsing command line arguments...")
+def parse_arguments(args):
 	parser = ArgumentParser(prog="ecoli_serotyper.py")
 	parser.add_argument("-i", "--indir", dest = "input_dir",
 		action = "store", default = None, type = str,
@@ -67,12 +66,12 @@ def parse_arguments(args, log):
 
 # Function creates logger with handlers for both logfile and console output
 # Returns logger
-def create_logger(logid):
+def create_logger(path):
 	# create logger
 	log = logging.getLogger()
 	log.setLevel(logging.INFO)
 	# create file handler
-	fh = logging.FileHandler(str(logid)+'_multi_serotyper.log')
+	fh = logging.FileHandler(path+'/multi_serotyper.log')
 	fh.setLevel(logging.DEBUG)
 	fh.setFormatter(logging.Formatter('%(message)s'))
 	log.addHandler(fh)
@@ -122,19 +121,18 @@ def close_logger(log):
 
 # MAIN function
 def main():
-	# create logger
-	logid = random.randint(99999, 9999999)
-	log = create_logger(logid)
 	# parse command line arguments
-	args = parse_arguments(sys.argv, log)
+	args = parse_arguments(sys.argv)
 	# TODO: add function to validate parameters, input data ect.
 	# creating output directory
 	if args.output_dir == 'inputdir':
 		outdir = os.path.abspath(args.input_dir)+"/multi_serotyper_output"
 	else:
 		outdir = os.path.abspath(args.output_dir)
-	log.info("Creating output directory: "+outdir)
 	os.system("mkdir -p "+outdir)
+        # create logger
+        log = create_logger(outdir)
+	log.info("Output directory: "+outdir)
 	with open(outdir+"/multi_serotyper_output.txt",  "w") as outfile:
 		outfile.write("File:\tH-type:\tO-type:")
 		# iterating over .fasta/.fsa/.fna/.fa files in input directory:
@@ -152,8 +150,6 @@ def main():
 	# close logger handlers
 	log.info("\nClosing logger and finalising multi_serotyper.py")
 	close_logger(log)
-	# move logfile and outputfile to output directory
-	os.system("mv "+str(logid)+"_multi_serotyper.log "+outdir+"/multi_serotyper.log")
 
 
 main()

@@ -54,8 +54,7 @@ import random
 
 # Function to parse the command-line arguments
 # Returns a namespace with argument keys and values
-def parse_arguments(args, log):
-	log.info("Parsing command line arguments...")
+def parse_arguments(args):
 	parser = ArgumentParser(prog="ecoli_serotyper.py")
 	parser.add_argument("-i", "--infile", dest = "input_file",
 		action = "store", default = None, type = str,
@@ -70,12 +69,12 @@ def parse_arguments(args, log):
 
 # Function creates logger with handlers for both logfile and console output
 # Returns logger
-def create_logger(logid):
+def create_logger(path):
 	# create logger
 	log = logging.getLogger()
 	log.setLevel(logging.INFO)
 	# create file handler
-	fh = logging.FileHandler(str(logid)+'_ecoli_serotyper.log')
+	fh = logging.FileHandler(path+'/ecoli_serotyper.log')
 	fh.setLevel(logging.DEBUG)
 	fh.setFormatter(logging.Formatter('%(message)s'))
 	log.addHandler(fh)
@@ -155,19 +154,17 @@ def close_logger(log):
 
 # MAIN function
 def main():
-	# create logger
-	logid = random.randint(99999, 9999999)
-	log = create_logger(logid)
 	# parse command line arguments
-	args = parse_arguments(sys.argv, log)
-	# TODO: add function to validate parameters, data ect.
+	args = parse_arguments(sys.argv)
 	# creating output directory
 	if args.output_dir == 'inputfile':
 		outdir = os.path.abspath(args.input_file).replace(".fasta", "").replace(".fna", "").replace(".fsa", "").replace(".fa", "")+"_ecoli_serotyper_output"
 	else:
 		outdir = os.path.abspath(args.output_dir)
-	log.info("Creating output directory: "+outdir)
-	os.system("mkdir -p "+outdir)
+        # create logger
+        os.system("mkdir -p "+outdir)
+        log = create_logger(outdir)
+	log.info("Output directory: "+outdir)
 	# blasting target genome to H and O databases
 	for type in ["H_type", "O_type"]:
 		log.info("________________________________________________________________________________\n")
@@ -180,8 +177,6 @@ def main():
 	# close logger handlers
 	log.info("\nClosing logger and finalising ecoli_serotyper.py")
 	close_logger(log)
-	# move logfile to output directory
-	os.system("mv "+str(logid)+"_ecoli_serotyper.log "+outdir+"/ecoli_serotyper.log")
 
 
 main()
