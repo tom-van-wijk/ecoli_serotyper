@@ -4,8 +4,8 @@
 # Name:		ecoli_serotyper.py
 # Date:		20-04-2018
 # Licence:	GNU General Public License v3.0 (copy provided in directory)
-# Author:	Tom van Wijk - RIVM Bilthoven
-# Contact:	tom_van_wijk@hotmail.com / tom.van.wijk@rivm.nl
+# Author:	Tom van Wijk
+# Contact:	tom_van_wijk@hotmail.com
 
 ############################## DESCRIPTION ##############################
 
