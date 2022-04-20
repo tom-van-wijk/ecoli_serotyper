@@ -11,6 +11,19 @@ The reference database used for typing is a blast database created using the dat
 When using this tool, please also cite the authors of that database as:<br /><br />
 *Joensen, K. G., A. M. Tetzschner, A. Iguchi, F. M. Aarestrup, and F. Scheutz. 2015. Rapid and easy in silico serotyping of Escherichia coli using whole genome sequencing (WGS) data. J.Clin.Microbiol. 53(8):2410-2426. doi:JCM.00008-15 [pii];10.1128/JCM.00008-15 [doi]*
 
+#### DOCKER
+You may execute this program in a docker container using the provided `Dockerfile`. In this case, follow these instructions, otherwise continue to the next section.
+
+*The docker image is based on the `multi_serotyper.py` therefore it can process one or more FASTA files at the same time*
+
+Instructions to build and run the docker container:
+-	Clone the ecoli_serotyper repository to the desired location on your system.<br />
+	`git clone https://github.com/Papos92/ecoli_serotyper.git`
+-	Build the docker image running the following command inside the location in which you downloaded the repo. This may take a short while and requires internet access.<br />
+	`docker build -t serotyper .`
+-	Run the image, you pass the input FASTA files with the `-v` argument. For that you must put all your input FASTA files inside a folder which will be the first part of the `-v` argument, and then keep the second part of the argument as is: `:/app/data`. When finished you'll see the console output of the `multi_serotyper.py` program.<br/>
+	`docker run -ti -v /input_data/fasta_files:/app/data serotyper:latest`
+
 #### REQUIREMENTS
 
 -	Linux operating system. This software is developed on Linux Ubuntu v16.04<br />
