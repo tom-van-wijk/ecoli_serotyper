@@ -18,7 +18,7 @@ You may execute this program in a docker container using the provided `Dockerfil
 
 Instructions to build and run the docker container:
 -	Clone the ecoli_serotyper repository to the desired location on your system.<br />
-	`git clone https://github.com/Papos92/ecoli_serotyper.git`
+	`git clone https://github.com/tom-van-wijk/ecoli_serotyper.git`
 -	Build the docker image running the following command inside the location in which you downloaded the repo. This may take a short while and requires internet access.<br />
 	`docker build -t serotyper .`
 -	Run the image, you pass the input FASTA files with the `-v` argument. For that you must put all your input FASTA files inside a folder which will be the first part of the `-v` argument, and then keep the second part of the argument as is: `:/app/data`. When finished you'll see the console output of the `multi_serotyper.py` program.<br/>
@@ -36,7 +36,7 @@ Instructions to build and run the docker container:
 #### INSTALLATION
 
 -	Clone the ecoli_serotyper repository to the desired location on your system.<br />
-	`git clone https://github.com/Papos92/ecoli_serotyper.git`
+	`git clone https://github.com/tom-van-wijk/ecoli_serotyper.git`
 -	Add the location of the ecoli_serotyper directory to the PATH variable:<br />
 	`export PATH=$PATH:/path/to/ecoli_serotyper.py`<br />
 	(It is recommended to add this command to your ~/.bashrc file)
