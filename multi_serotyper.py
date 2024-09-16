@@ -30,7 +30,7 @@
 ################################# USAGE #################################
 
 # Start the script with the following command:
-# > multi_ES.py -i <inputdir> -o <outputdir>
+# > multi_serotyper.py -i <inputdir> -o <outputdir>
 
 # inputfile:		location of input directory. Should contain
 #			assembled ecoli	genomes in .fasta/.fsa/.fna/.fa format.
